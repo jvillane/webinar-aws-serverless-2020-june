@@ -24,3 +24,27 @@ Alguna de las tecnologías base involucradas en las demostraciones son:
 - TypeScript
 - Git
 - Yaml
+
+## Demos
+
+### Demo 2
+
+Para transcompilar el código TypeScript a Javascript usar el comando `tsc`, lo cual generará los archivos json en la carpeta `dist`. Podría ser necesaio vaciar la carpeta `dist` previamente para limpiar procesos anteriores. 
+
+Antes de hacer el deploy del nuevo stack es necesario subir a un bucket de S3 la configuración de OpenAPI, lo cual se puede realizar a través de la consola de la siguiente manera:
+
+`aws s3 cp openapi.yaml ${S3_OPENAPI_LOCATION} --sse`
+
+Para luego proceder a realizar el `package` y el `deploy` usando los siguientes comandos:
+
+```
+sam package --output-template-file packaged.yaml \
+    --template-file cloudformation.yaml \
+    --s3-bucket ${S3_BUCKET}
+
+sam deploy --template-file packaged.yaml \
+    --capabilities CAPABILITY_NAMED_IAM \
+    --region us-east-1 \
+    --stack-name ${STACK_NAME} \
+    --parameter-overrides SwaggerS3File=${S3_OPENAPI_LOCATION}
+```

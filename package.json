@@ -1,0 +1,10 @@
+{
+  "name": "aws-serverless-june-2020-demo-2",
+  "version": "1.0.0",
+  "description": "POC Lambda Libs Examples by Patagonia IT",
+  "author": "Julio Villane",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.56"
+  }
+}

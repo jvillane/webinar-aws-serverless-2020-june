@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  aws-sam-lambda-proxy-integration
+
+Globals:
+  Function:
+    Runtime: nodejs12.x
+    Timeout: 30
+    MemorySize: 256
+
+Resources:
+  PetPut:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/
+      Handler: pet.put
+      Events:
+        LambdaInfoGet:
+          Type: Api
+          Properties:
+            Path: /pet/{id}
+            Method: put

@@ -1,0 +1,55 @@
+openapi: 3.0.1
+
+info:
+  title: Webinar API
+  description: Estructura de la API para la segunda demostración
+  contact:
+    name: Julio Villane
+    url: http://www.patagonia-it.com
+    email: julio@patagonia-it.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+paths:
+  /pet/{id}:
+    put:
+      summary: Actualizar información de la macota
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        description: estructura de la mascota
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        200:
+          description: respuesta vacía
+
+components:
+  schemas:
+    Pet:
+      title: Mascota
+      type: object
+      properties:
+        name:
+          type: string
+          description: el nombre de la mascota
+        species:
+          type: string
+          enum: [Dog, Cat, Bird, Ferret]
+          description: la especie de la mascota
+        breed:
+          type: string
+          description: la raza de la mascota
+      required:
+        - name
+        - species
