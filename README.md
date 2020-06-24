@@ -46,5 +46,5 @@ sam deploy --template-file packaged.yaml \
     --capabilities CAPABILITY_NAMED_IAM \
     --region us-east-1 \
     --stack-name ${STACK_NAME} \
-    --parameter-overrides SwaggerS3File=${S3_OPENAPI_LOCATION}
+    --parameter-overrides OpenAPIFile=${S3_OPENAPI_LOCATION}
 ```

@@ -3,18 +3,15 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   aws-sam-lambda-proxy-integration
 
-Globals:
-  Function:
-    Runtime: nodejs12.x
-    Timeout: 30
-    MemorySize: 256
-
 Resources:
   PetPut:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: dist/
       Handler: pet.put
+      Runtime: nodejs12.x
+      Timeout: 30
+      MemorySize: 256
       Events:
         LambdaInfoGet:
           Type: Api

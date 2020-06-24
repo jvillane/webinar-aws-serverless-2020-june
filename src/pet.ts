@@ -16,7 +16,7 @@ export const put: APIGatewayProxyHandler = (event, context, callback) => {
       const body: Pet = JSON.parse(event.body);
       //validar que tenga los atributos obligatorios 'name' y 'species'
       if (body.name && body.species) {
-        save(+event.pathParameters.id, body)
+        save(id, body)
           .then(() => {
             callback(undefined, {
               statusCode: 200,
@@ -26,7 +26,7 @@ export const put: APIGatewayProxyHandler = (event, context, callback) => {
           .catch(() => {
             callback(undefined, {
               statusCode: 404,
-              body: `Pet with id '${id}' not found`
+              body: "Pet id not found"
             });
           })
       } else {
