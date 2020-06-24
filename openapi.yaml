@@ -41,22 +41,10 @@ paths:
         responses:
           default:
             statusCode: 200
-          ID_NOT_NUMBER:
-            statusCode: 400
-            responseTemplates:
-              application/json: Path parameter 'id' not defined nor number
           ID_NOT_FOUND:
             statusCode: 404
             responseTemplates:
               application/json: Pet id not found
-          BAD_BODY:
-            statusCode: 400
-            responseTemplates:
-              application/json: Bad request body
-          BODY_REQUIRED:
-            statusCode: 400
-            responseTemplate:
-              application/json: Request body required
       summary: Actualizar información de la macota
       parameters:
         - in: path
