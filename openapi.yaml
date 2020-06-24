@@ -12,9 +12,51 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 
+x-amazon-apigateway-request-validators:
+  body:
+    validateRequestParameters: false
+    validateRequestBody: true
+  params:
+    validateRequestParameters: true
+    validateRequestBody: false
+  all:
+    validateRequestParameters: true
+    validateRequestBody: true
+
 paths:
   /pet/{id}:
     put:
+      x-amazon-apigateway-request-validator: all
+      x-amazon-apigateway-integration:
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PetPut.Arn}/invocations
+        httpMethod: POST
+        type: aws
+        requestTemplates:
+          "application/json": |
+            {
+              "id": "$input.params().path.get('id')",
+              "body": $input.json('$')
+            }
+        responses:
+          default:
+            statusCode: 200
+          ID_NOT_NUMBER:
+            statusCode: 400
+            responseTemplates:
+              application/json: Path parameter 'id' not defined nor number
+          ID_NOT_FOUND:
+            statusCode: 404
+            responseTemplates:
+              application/json: Pet id not found
+          BAD_BODY:
+            statusCode: 400
+            responseTemplates:
+              application/json: Bad request body
+          BODY_REQUIRED:
+            statusCode: 400
+            responseTemplate:
+              application/json: Request body required
       summary: Actualizar información de la macota
       parameters:
         - in: path
@@ -33,6 +75,10 @@ paths:
       responses:
         200:
           description: respuesta vacía
+        400:
+          description: request mal realizado
+        404:
+          description: el id no existe
 
 components:
   schemas:

@@ -3,21 +3,36 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
   aws-sam-lambda-proxy-integration
 
-Globals:
-  Function:
-    Runtime: nodejs12.x
-    Timeout: 30
-    MemorySize: 256
+Parameters:
+  OpenAPIFile:
+    Description: '"openapi.yaml" file location'
+    Default: "./openapi.yaml"
+    Type: String
 
 Resources:
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: api
+      Name: !Sub ${AWS::StackName}-api
+      DefinitionBody:
+        'Fn::Transform':
+          Name: AWS::Include
+          Parameters:
+            Location: !Ref OpenAPIFile
+
   PetPut:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: dist/
       Handler: pet.put
+      Runtime: nodejs12.x
+      Timeout: 30
+      MemorySize: 256
       Events:
         LambdaInfoGet:
           Type: Api
           Properties:
+            RestApiId: !Ref Api
             Path: /pet/{id}
             Method: put
