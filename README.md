@@ -4,9 +4,9 @@ Proyecto de apoyo a la realización del **Serverless Webinar** realizado el día
 
 Cada una de las demostraciones se separó en distintas ramas de git según la siguiente definición:
 
-- demo1_complete: resultado final de la 1era demostración del webinar
-- demo2_initial: 
-- demo2_complete: resultado final de la 2da demostración del webinar
+- **demo1_complete**: resultado final de la 1era demostración del webinar
+- **demo2_initial**: punto de partida para la 2da demostración del webinar
+- **demo2_complete**: resultado final de la 2da demostración del webinar
 
 ## Requisitos
 
