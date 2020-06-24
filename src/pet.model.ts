@@ -14,4 +14,4 @@ export interface PetPut {
   body: Pet
 }
 
-export type APIGatewayPetPutHandler = Handler<PetPut, APIGatewayProxyResult>;
+export type APIGatewayPetPutHandler = Handler<PetPut, string>;
